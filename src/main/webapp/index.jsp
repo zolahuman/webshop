@@ -8,8 +8,8 @@
 <body>
 <div class="container" style="text-align: center">
     <h1>Web shop</h1>
-    <a class="button" href="/register.jsp">Register</a>
-    <a class="button" href="/login.jsp">Login</a>
+    <a class="button" href="register.jsp">Register</a>
+    <a class="button" href="login.jsp">Login</a>
 
 </div>
 <a class="button" href="catalog">View Catalog</a>
