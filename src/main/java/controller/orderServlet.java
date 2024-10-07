@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.dao.orderDAO;
+import model.services.orderServices;
 
 import java.io.IOException;
 import java.sql.*;
@@ -26,15 +26,15 @@ public class orderServlet extends HttpServlet {
         if (username == null) {
             response.sendRedirect("login.jsp");
         }
-        orderDAO orderDAO = new orderDAO();
+        orderServices orderServices = new orderServices();
 
         String[] itemIds = request.getParameterValues("itemId");
         String[] amounts = request.getParameterValues("amount");
 
         if (itemIds != null && amounts != null) {
             try {
-                int newOrderId = orderDAO.getNextOrderId();
-                orderDAO.placeOrder(newOrderId, username, itemIds, amounts);
+                int newOrderId = orderServices.getNextOrderId();
+                orderServices.placeOrder(newOrderId, username, itemIds, amounts);
 
                 session.removeAttribute("cart");
                 response.sendRedirect("catalog");

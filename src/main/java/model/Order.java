@@ -22,6 +22,10 @@ public class Order {
         this.items = new ArrayList<>();
     }
 
+    public Order() {
+
+    }
+
     public String getStatus() {
         return status;
     }

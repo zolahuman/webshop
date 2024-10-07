@@ -1,7 +1,7 @@
 package model.dao;
 
 
-import model.dto.UserDTO;
+import model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ public class userDAO {
     private static final String DB_URL = "jdbc:sqlite:C:/Users/zola_/Documents/GitHub/webshop/databas/webshop.db";
 
 
-    public boolean addUser(UserDTO user) throws SQLException {
+    public boolean addUser(User user) throws SQLException {
         boolean succes=false;
         try {
             Class.forName("org.sqlite.JDBC");
@@ -37,7 +37,7 @@ public class userDAO {
     }
 
 
-    public UserDTO getUserByUsername(String username) throws SQLException {
+    public User getUserByUsername(String username) throws SQLException {
         String query = "SELECT * FROM users WHERE username = ?";
 
         try {
@@ -50,7 +50,7 @@ public class userDAO {
                     if (resultSet.next()) {
                         String password = resultSet.getString("password");
                         String role = resultSet.getString("role");
-                        return new UserDTO(username, password, role);
+                        return new User(username, password, role);
                     } else {
                         return null;
                     }
@@ -62,9 +62,9 @@ public class userDAO {
     }
 
 
-    public List<UserDTO> getAllUsers() throws SQLException {
+    public List<User> getAllUsers() throws SQLException {
         String query = "SELECT * FROM users";
-        List<UserDTO> userList = new ArrayList<>();
+        List<User> userList = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(DB_URL);
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
@@ -73,7 +73,7 @@ public class userDAO {
                 String username = resultSet.getString("username");
                 String password = resultSet.getString("password");
                 String role = resultSet.getString("role");
-                UserDTO user = new UserDTO(username, password, role);
+                User user = new User(username, password, role);
                 userList.add(user);
             }
         }
@@ -81,7 +81,7 @@ public class userDAO {
     }
 
 
-    public boolean updateUser(UserDTO user) throws SQLException {
+    public boolean updateUser(User user) throws SQLException {
         String query = "UPDATE users SET password = ?, role = ? WHERE username = ?";
         try (Connection connection = DriverManager.getConnection(DB_URL);
              PreparedStatement statement = connection.prepareStatement(query)) {

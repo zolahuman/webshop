@@ -6,8 +6,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import model.dao.itemDAO;
 import model.dto.ItemDTO;
+import model.services.itemServices;
 import model.utils.sessionUtils;
 
 import java.io.IOException;
@@ -39,13 +39,16 @@ public class updateItemServlet extends HttpServlet {
 
         boolean succes=false;
 
+
+        itemServices itemServices = new itemServices();
+
+
         if (name == null || description == null || category == null || price < 0 || amount < 0) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid input data.");
             return;
         }else {
-            itemDAO itemDao = new itemDAO();
             try {
-                succes=itemDao.updateItem(new ItemDTO(name, description, category, price, itemId, amount));
+                succes=itemServices.updateItem(new ItemDTO(name, description, category, price, itemId, amount));
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

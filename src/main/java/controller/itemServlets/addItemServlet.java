@@ -6,9 +6,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import model.dao.itemDAO;
 import model.dto.ItemDTO;
 import model.utils.sessionUtils;
+import model.services.itemServices;
+
 
 import java.io.IOException;
 import java.sql.*;
@@ -27,8 +28,6 @@ public class addItemServlet extends HttpServlet {
             request.setAttribute("role", role);
         }
 
-        itemDAO itemDao = new itemDAO();
-
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         String category = request.getParameter("category");
@@ -36,9 +35,10 @@ public class addItemServlet extends HttpServlet {
         int amount = Integer.parseInt(request.getParameter("amount"));
 
         ItemDTO itemDTO = new ItemDTO(name, description, category, price,0 , amount);
+        itemServices itemServices = new itemServices();
 
         try {
-            itemDao.addItem(itemDTO);
+            itemServices.addItem(itemDTO);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

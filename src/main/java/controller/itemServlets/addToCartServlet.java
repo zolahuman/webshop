@@ -8,8 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import model.dao.itemDAO;
 import model.dto.ItemDTO;
+import model.services.itemServices;
 import model.utils.sessionUtils;
 
 import java.io.IOException;
@@ -41,10 +41,11 @@ public class addToCartServlet extends HttpServlet {
         }
 
         int itemId = Integer.parseInt(request.getParameter("itemId"));
-        itemDAO itemDao = new itemDAO();
+        itemServices itemServices = new itemServices();
+
         ItemDTO item = null;
         try {
-            item = itemDao.getItemById(itemId);
+            item = itemServices.getItemById(itemId);
             item.setAmount(1);
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -1,5 +1,6 @@
 package model.dao;
 
+import model.Item;
 import model.dto.ItemDTO;
 
 import java.sql.*;
@@ -11,7 +12,7 @@ public class itemDAO {
     private static final String DB_URL = "jdbc:sqlite:C:/Users/zola_/Documents/GitHub/webshop/databas/webshop.db";
 
 
-    public void addItem(ItemDTO item) throws SQLException {
+    public void addItem(Item item) throws SQLException {
         String sql = "INSERT INTO items (name, description, category, price, amount) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(DB_URL);
@@ -25,9 +26,9 @@ public class itemDAO {
         }
     }
 
-    public ItemDTO getItemById(int id) throws SQLException {
+    public Item getItemById(int id) throws SQLException {
         String sql = "SELECT * FROM items WHERE id = ?";
-        ItemDTO item = null;
+        Item item = null;
 
         try {
             Class.forName("org.sqlite.JDBC");
@@ -41,7 +42,7 @@ public class itemDAO {
                     String category = resultSet.getString("category");
                     int price = resultSet.getInt("price");
                     int amount = resultSet.getInt("amount");
-                    item = new ItemDTO(name, description, category, price, id, amount);
+                    item = new Item(name, description, category, price, id, amount);
                 }
             }
         } catch (ClassNotFoundException e) {
@@ -51,8 +52,8 @@ public class itemDAO {
         return item;
     }
 
-    public List<ItemDTO> getAllItems() throws SQLException {
-        List<ItemDTO> items = new ArrayList<>();
+    public List<Item> getAllItems() throws SQLException {
+        List<Item> items = new ArrayList<>();
         String sql = "SELECT * FROM items";
 
         try {
@@ -68,7 +69,7 @@ public class itemDAO {
                     int price = resultSet.getInt("price");
                     int id = resultSet.getInt("id");
                     int amount = resultSet.getInt("amount");
-                    items.add(new ItemDTO(name, description, category, price, id, amount));
+                    items.add(new Item(name, description, category, price, id, amount));
                 }
 
             }catch (SQLException e) {
@@ -81,7 +82,7 @@ public class itemDAO {
     }
 
 
-    public boolean updateItem(ItemDTO item) throws SQLException {
+    public boolean updateItem(Item item) throws SQLException {
         String sql = "UPDATE items SET name = ?, description = ?, category = ?, price = ?, amount = ? WHERE id = ?";
         boolean succes=false;
         try {
@@ -99,11 +100,7 @@ public class itemDAO {
                 int rowsUpdated = preparedStatement.executeUpdate();
 
 
-                if (rowsUpdated > 0) {
-                    succes=true;
-                } else {
-                    succes=false;
-                }
+                succes= rowsUpdated > 0;
             }
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);

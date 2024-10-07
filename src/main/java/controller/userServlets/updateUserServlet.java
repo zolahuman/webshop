@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.dao.userDAO;
+import model.services.userServices;
 import model.dto.UserDTO;
 import model.utils.sessionUtils;
 
@@ -35,10 +35,10 @@ public class updateUserServlet extends HttpServlet {
         String newPassword = request.getParameter("newpassword");
         String newRole = request.getParameter("newrole");
 
-        userDAO userDao = new userDAO();
+        userServices userServices = new userServices();
         boolean succes = false;
         try {
-            succes=userDao.updateUser(new UserDTO(usernametoedit,newPassword,newRole));
+            succes= userServices.updateUser(new UserDTO(usernametoedit,newPassword,newRole));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

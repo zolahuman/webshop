@@ -6,7 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import model.dao.userDAO;
+import model.services.userServices;
 import model.dto.UserDTO;
 
 import java.io.IOException;
@@ -24,10 +24,10 @@ public class registerServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid input");
         }
 
-        userDAO userDao = new userDAO();
+        userServices userServices = new userServices();
         boolean succes=false;
         try {
-            succes=userDao.addUser(new UserDTO(username,password,role));
+            succes=userServices.addUser(new UserDTO(username,password,role));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

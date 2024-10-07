@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import jakarta.servlet.http.HttpSession;
-import model.dao.userDAO;
+import model.services.userServices;
 import model.dto.UserDTO;
 import model.utils.sessionUtils;
 
@@ -33,9 +33,9 @@ public class getUsersServlet extends HttpServlet {
         }
 
         List<UserDTO> userList = new ArrayList<>();
-        userDAO userDao = new userDAO();
+        userServices userServices = new userServices();
         try {
-            userList = userDao.getAllUsers();
+            userList = userServices.getAllUsers();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import model.dao.itemDAO;
 import model.dto.ItemDTO;
+import model.services.itemServices;
 import model.utils.sessionUtils;
 
 import java.io.IOException;
@@ -32,10 +32,10 @@ public class catalogServlet extends HttpServlet {
             request.setAttribute("role", role);
         }
 
-        itemDAO itemDao = new itemDAO();
+        itemServices itemServices =new itemServices();
         List<ItemDTO> itemList = null;
         try {
-            itemList = itemDao.getAllItems();
+            itemList = itemServices.getAllItems();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
