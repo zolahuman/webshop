@@ -5,8 +5,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.User;
+
 import model.dao.userDAO;
+import model.dto.UserDTO;
 
 import java.io.IOException;
 import java.sql.*;
@@ -26,7 +27,7 @@ public class registerServlet extends HttpServlet {
         userDAO userDao = new userDAO();
         boolean succes=false;
         try {
-            succes=userDao.addUser(new User(username,password,role));
+            succes=userDao.addUser(new UserDTO(username,password,role));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

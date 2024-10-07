@@ -7,7 +7,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.Item;
+
+import model.dto.ItemDTO;
 import model.utils.sessionUtils;
 
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class getCartServlet extends HttpServlet {
             request.setAttribute("role", role);
         }
 
-        List<Item> cart = (List<Item>) session.getAttribute("cart");
+        List<ItemDTO> cart = (List<ItemDTO>) session.getAttribute("cart");
         if (cart == null) {
             cart = new ArrayList<>();
         }
@@ -42,9 +43,9 @@ public class getCartServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private int getTotalPrice(List<Item> cart){
+    private int getTotalPrice(List<ItemDTO> cart){
         int totalprice=0;
-        for (Item c: cart){
+        for (ItemDTO c: cart){
             totalprice+=c.getPrice()*c.getAmount();
         }
         return totalprice;

@@ -1,10 +1,4 @@
-<%@ page import="model.User" %><%--
-  Created by IntelliJ IDEA.
-  User: Zola07
-  Date: 2024-10-05
-  Time: 05:01
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="model.dto.UserDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -15,8 +9,7 @@
 <h1>Update User</h1>
 
 <%
-    User usertoedit = (User) request.getAttribute("user");
-    // Get the items from request attribute
+    UserDTO usertoedit = (UserDTO) request.getAttribute("user");
 %>
 
 <form method="post" action="updateUser">

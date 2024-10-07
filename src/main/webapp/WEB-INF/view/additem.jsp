@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Zola07
-  Date: 2024-10-05
-  Time: 08:13
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 
 <html>
@@ -15,7 +8,6 @@
 <body>
 
 <%
-    // Get the items from request attribute
     String username = (String) request.getAttribute("username");
     if (username != null)
     {

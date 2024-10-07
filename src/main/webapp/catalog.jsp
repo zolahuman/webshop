@@ -1,13 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Zola07
-  Date: 2024-10-04
-  Time: 02:13
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.util.List" %>
-<%@ page import="model.Item" %>
+<%@ page import="model.dto.ItemDTO" %>
 <html>
 <head>
     <title>Web shop catalog</title>
@@ -16,7 +9,6 @@
 <body>
 
 <%
-    // Get the items from request attribute
     String username = (String) request.getAttribute("username");
     if (username != null)
         {
@@ -57,11 +49,11 @@
     <h1>Catalog</h1>
 
     <%
-        List<Item> items = (List<Item>) request.getAttribute("items");
+        List<ItemDTO> items = (List<ItemDTO>) request.getAttribute("items");
         if (items != null) {
     %>
     <div class="itemcontainer">
-        <% for (Item item : items) { %>
+        <% for (ItemDTO item : items) { %>
         <div class="item">
             <h2><%= item.getName() %></h2>
             <p><%= item.getDescription() %></p>

@@ -7,8 +7,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import model.Item;
+
 import model.dao.itemDAO;
+import model.dto.ItemDTO;
 import model.utils.sessionUtils;
 
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class getItemServlet extends HttpServlet {
         }
         itemDAO itemDao = new itemDAO();
 
-        Item item = null;
+        ItemDTO item = null;
         try {
             item = itemDao.getItemById(itemId);
         } catch (SQLException e) {

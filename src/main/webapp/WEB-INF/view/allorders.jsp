@@ -1,6 +1,6 @@
-<%@ page import="model.Item" %>
 <%@ page import="java.util.List" %>
-<%@ page import="model.Order" %><%--
+<%@ page import="model.dto.orderDTO" %>
+<%@ page import="model.dto.ItemDTO" %><%--
   Created by IntelliJ IDEA.
   User: Zola07
   Date: 2024-10-05
@@ -56,11 +56,11 @@ else {
     <h1>Orders</h1>
 
     <%
-        List<Order> orders = (List<Order>) request.getAttribute("orders");
+        List<orderDTO> orders = (List<orderDTO>) request.getAttribute("orders");
         if (orders != null) {
     %>
     <div class="ordercontainer">
-        <% for (Order order : orders) { %>
+        <% for (orderDTO order : orders) { %>
         <div class="order">
             <div>
                 <h2>Order id: <%= order.getOrderId() %></h2>
@@ -69,8 +69,8 @@ else {
             </div>
 
             <%
-            List<Item> items = order.getItems();
-            for (Item item  : items) { %>
+            List<ItemDTO> items = order.getItems();
+            for (ItemDTO item  : items) { %>
             <div class="item">
                 <h2><%= item.getName() %></h2>
                 <p><%= item.getCategory() %></p>

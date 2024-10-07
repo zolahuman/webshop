@@ -7,8 +7,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.Item;
+
 import model.dao.itemDAO;
+import model.dto.ItemDTO;
 import model.utils.sessionUtils;
 
 import java.io.IOException;
@@ -34,14 +35,14 @@ public class addToCartServlet extends HttpServlet {
             request.setAttribute("role", role);
         }
 
-        List<Item> cart = (List<Item>) session.getAttribute("cart");
+        List<ItemDTO> cart = (List<ItemDTO>) session.getAttribute("cart");
         if (cart == null) {
             cart = new ArrayList<>();
         }
 
         int itemId = Integer.parseInt(request.getParameter("itemId"));
         itemDAO itemDao = new itemDAO();
-        Item item = null;
+        ItemDTO item = null;
         try {
             item = itemDao.getItemById(itemId);
             item.setAmount(1);
@@ -53,7 +54,7 @@ public class addToCartServlet extends HttpServlet {
             int i;
             for( i=0; i<cart.size() ; i++){
                 if (cart.get(i).getId()==itemId){
-                    cart.get(i).incrementAmount();
+                    cart.get(i).setAmount(cart.get(i).getAmount()+1);
                     break;
                 }
             }

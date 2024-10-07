@@ -8,8 +8,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.Item;
+
 import model.dao.itemDAO;
+import model.dto.ItemDTO;
 import model.utils.sessionUtils;
 
 import java.io.IOException;
@@ -32,7 +33,7 @@ public class catalogServlet extends HttpServlet {
         }
 
         itemDAO itemDao = new itemDAO();
-        List<Item> itemList = null;
+        List<ItemDTO> itemList = null;
         try {
             itemList = itemDao.getAllItems();
         } catch (SQLException e) {

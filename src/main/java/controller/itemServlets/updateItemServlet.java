@@ -5,8 +5,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.Item;
+
 import model.dao.itemDAO;
+import model.dto.ItemDTO;
 import model.utils.sessionUtils;
 
 import java.io.IOException;
@@ -44,7 +45,7 @@ public class updateItemServlet extends HttpServlet {
         }else {
             itemDAO itemDao = new itemDAO();
             try {
-                succes=itemDao.updateItem(new Item(name, description, category, price, itemId, amount));
+                succes=itemDao.updateItem(new ItemDTO(name, description, category, price, itemId, amount));
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

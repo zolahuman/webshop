@@ -6,8 +6,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import model.Item;
 import model.dao.itemDAO;
+import model.dto.ItemDTO;
 import model.utils.sessionUtils;
 
 import java.io.IOException;
@@ -35,8 +35,10 @@ public class addItemServlet extends HttpServlet {
         int price = Integer.parseInt(request.getParameter("price"));
         int amount = Integer.parseInt(request.getParameter("amount"));
 
+        ItemDTO itemDTO = new ItemDTO(name, description, category, price,0 , amount);
+
         try {
-            itemDao.addItem(new Item(name, description, category, price,0 , amount));
+            itemDao.addItem(itemDTO);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

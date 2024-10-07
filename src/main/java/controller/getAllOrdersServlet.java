@@ -6,8 +6,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Order;
+
 import model.dao.orderDAO;
+import model.dto.orderDTO;
 import model.utils.sessionUtils;
 
 import java.io.IOException;
@@ -32,7 +33,7 @@ public class getAllOrdersServlet extends HttpServlet {
         try {
             orderDAO orderDao = new orderDAO();
 
-            List<Order> orders = orderDao.getAllOrders();
+            List<orderDTO> orders = orderDao.getAllOrders();
 
             request.setAttribute("orders", orders);
 

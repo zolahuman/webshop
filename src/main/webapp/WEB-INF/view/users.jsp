@@ -1,13 +1,6 @@
-<%@ page import="model.User" %><%--
-  Created by IntelliJ IDEA.
-  User: Zola07
-  Date: 2024-10-05
-  Time: 04:14
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.util.List" %>
-<%@ page import="model.User" %>
+<%@ page import="model.dto.UserDTO" %>
 <html>
 <head>
     <title>All Users</title>
@@ -15,7 +8,6 @@
 </head>
 <body>
 <%
-    // Get the items from request attribute
     String username = (String) request.getAttribute("username");
     if (username != null)
     {
@@ -54,7 +46,7 @@ else {
 <h1>All Users</h1>
 
 <%
-    List<User> userList = (List<User>) request.getAttribute("userList");
+    List<UserDTO> userList = (List<UserDTO>) request.getAttribute("userList");
     if (userList != null && !userList.isEmpty()) {
 %>
 <table border="1">
@@ -64,7 +56,7 @@ else {
         <th>Role</th>
     </tr>
     <%
-        for (User user : userList) {
+        for (UserDTO user : userList) {
     %>
     <tr>
         <td><%= user.getUsername() %></td>

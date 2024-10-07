@@ -8,8 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import jakarta.servlet.http.HttpSession;
-import model.User;
 import model.dao.userDAO;
+import model.dto.UserDTO;
 import model.utils.sessionUtils;
 
 import java.io.IOException;
@@ -32,7 +32,7 @@ public class getUsersServlet extends HttpServlet {
             request.setAttribute("role", role);
         }
 
-        List<User> userList = new ArrayList<>();
+        List<UserDTO> userList = new ArrayList<>();
         userDAO userDao = new userDAO();
         try {
             userList = userDao.getAllUsers();

@@ -1,13 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Zola07
-  Date: 2024-10-04
-  Time: 23:35
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.util.List" %>
-<%@ page import="model.Item" %>
+<%@ page import="model.dto.ItemDTO" %>
 <html>
 <head>
     <title>Cart</title>
@@ -16,7 +9,6 @@
 <body>
 
 <%
-    // Get the items from request attribute
     String username = (String) request.getAttribute("username");
     if (username != null)
     {
@@ -47,14 +39,14 @@
 
         <%
     // Get the items from request attribute
-    List<Item> items = (List<Item>) request.getAttribute("cart");
+    List<ItemDTO> items = (List<ItemDTO>) request.getAttribute("cart");
 
     if (items != null && !items.isEmpty()) {
         int totalprice = (int) request.getAttribute("totalprice");
         %>
         <div class="cartcontainer">
         <%
-        for (Item item : items)
+        for (ItemDTO item : items)
         {%>
             <div class="item">
                 <h2><%= item.getName() %></h2>
@@ -76,7 +68,7 @@
         <p> Total price: <%= totalprice%> </p>
         <!-- Submit each item's id and amount as hidden fields -->
         <%
-            for (Item item : items) {
+            for (ItemDTO item : items) {
         %>
         <input type="hidden" name="itemId" value="<%= item.getId() %>">
         <input type="hidden" name="amount" value="<%= item.getAmount() %>">

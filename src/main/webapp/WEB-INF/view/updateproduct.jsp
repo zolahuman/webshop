@@ -1,12 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Zola07
-  Date: 2024-10-05
-  Time: 07:08
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="model.Item" %>
+<%@ page import="model.dto.ItemDTO" %>
 <html>
 <head>
     <title>Update Item</title>
@@ -17,7 +10,7 @@
 <h1>Update Item</h1>
 
 <%
-    Item itemtoupdate = (Item) request.getAttribute("item");
+    ItemDTO itemtoupdate = (ItemDTO) request.getAttribute("item");
     if (itemtoupdate != null) {
 %>
 

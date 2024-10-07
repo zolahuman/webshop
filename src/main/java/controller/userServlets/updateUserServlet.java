@@ -5,8 +5,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.User;
 import model.dao.userDAO;
+import model.dto.UserDTO;
 import model.utils.sessionUtils;
 
 import java.io.IOException;
@@ -38,7 +38,7 @@ public class updateUserServlet extends HttpServlet {
         userDAO userDao = new userDAO();
         boolean succes = false;
         try {
-            succes=userDao.updateUser(new User(usernametoedit,newPassword,newRole));
+            succes=userDao.updateUser(new UserDTO(usernametoedit,newPassword,newRole));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

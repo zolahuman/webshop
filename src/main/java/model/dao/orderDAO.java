@@ -1,8 +1,7 @@
 package model.dao;
 
-import jakarta.servlet.http.HttpServletResponse;
-import model.Item;
-import model.Order;
+import model.dto.ItemDTO;
+import model.dto.orderDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,7 +9,8 @@ import java.util.List;
 
 public class orderDAO {
 
-    private static final String DB_URL = "jdbc:sqlite:C:/Distributedlabs/webshop/databas/webshop.db";
+    private static final String DB_URL = "jdbc:sqlite:C:/Users/zola_/Documents/GitHub/webshop/databas/webshop.db";
+
 
     public void placeOrder(int orderId, String username, String[] itemIds, String[] amounts) throws SQLException {
         String sqlOrderInsert = "INSERT INTO orders (orderid, itemid, amount, status, orderby) VALUES (?, ?, ?, ?, ?)";
@@ -85,8 +85,8 @@ public class orderDAO {
         }
     }
 
-    public List<Order> getAllOrders() throws SQLException {
-        List<Order> orders = new ArrayList<>();
+    public List<orderDTO> getAllOrders() throws SQLException {
+        List<orderDTO> orders = new ArrayList<>();
         String sql = "SELECT o.orderid, o.orderby, o.status, o.itemid, o.amount, i.name, i.price, i.category " +
                 "FROM orders o " +
                 "JOIN items i ON o.itemid = i.id " +
@@ -96,7 +96,7 @@ public class orderDAO {
              PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
 
-            Order currentOrder = null;
+            orderDTO currentOrder = null;
 
             while (resultSet.next()) {
                 int orderId = resultSet.getInt("orderid");
@@ -107,7 +107,7 @@ public class orderDAO {
                     if (currentOrder != null) {
                         orders.add(currentOrder);
                     }
-                    currentOrder = new Order(orderId, orderBy, status);
+                    currentOrder = new orderDTO(new ArrayList<>() ,orderId, orderBy, status);
                 }
 
 
@@ -117,8 +117,10 @@ public class orderDAO {
                 String itemCategory = resultSet.getString("category");
                 int itemAmount = resultSet.getInt("amount");
 
-                Item item = new Item(itemName, itemCategory, itemPrice, itemId,itemAmount);
-                currentOrder.addItem(item);
+                ItemDTO item = new ItemDTO(itemName,"", itemCategory, itemPrice, itemId,itemAmount);
+                List<ItemDTO> itemsCpy = currentOrder.getItems();
+                itemsCpy.add(item);
+                currentOrder.setItems(itemsCpy);
             }
 
             if (currentOrder != null) {

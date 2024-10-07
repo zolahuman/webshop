@@ -6,9 +6,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.Item;
-import model.User;
+
 import model.dao.userDAO;
+import model.dto.ItemDTO;
+import model.dto.UserDTO;
 import model.utils.sessionUtils;
 
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class loginServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Username is required");
         }
 
-        User user = null;
+        UserDTO user = null;
         userDAO userDao = new userDAO();
         try {
             user = userDao.getUserByUsername(username);
@@ -44,7 +45,7 @@ public class loginServlet extends HttpServlet {
             session.setAttribute("username", user.getUsername());
             session.setAttribute("role", user.getRole());
 
-            List<Item> cart = new ArrayList<>();
+            List<ItemDTO> cart = new ArrayList<>();
             session.setAttribute("cart", cart);
             response.sendRedirect("catalog");
         } else {
